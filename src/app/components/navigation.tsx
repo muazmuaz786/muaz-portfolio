@@ -65,9 +65,6 @@ export function Navigation() {
             <a href="#hobbies" className="block text-gray-300 hover:text-white transition-colors">
               Hobbies
             </a>
-            <a href="#blog" className="block text-gray-300 hover:text-white transition-colors">
-              Blog
-            </a>
             <a href="#portfolio" className="block text-gray-300 hover:text-white transition-colors">
               Portfolio
             </a>
