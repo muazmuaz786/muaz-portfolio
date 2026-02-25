@@ -2,7 +2,6 @@ import { motion } from 'motion/react';
 import { useInView } from '../hooks/use-in-view';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { useRef } from 'react';
-import type { PointerEvent as PointerEvt, WheelEvent as WheelEvt } from 'react';
 import DjangoLogo from '../../assets/skill-logos/django.svg';
 import ReactLogo from '../../assets/skill-logos/react.svg';
 import cpp from '../../assets/skill-logos/c++.svg';
@@ -64,37 +63,6 @@ const skills: Skill[] = [
 export function SkillsSection() {
   const { ref, isInView } = useInView();
   const scrollContainerRef = useRef<HTMLDivElement>(null);
-  const isPointerDown = useRef(false);
-  const pointerStartX = useRef(0);
-  const scrollStartX = useRef(0);
-
-  const handlePointerDown = (event: PointerEvt<HTMLDivElement>) => {
-    if (!scrollContainerRef.current) return;
-    isPointerDown.current = true;
-    pointerStartX.current = event.clientX;
-    scrollStartX.current = scrollContainerRef.current.scrollLeft;
-    scrollContainerRef.current.setPointerCapture?.(event.pointerId);
-  };
-
-  const handlePointerMove = (event: PointerEvt<HTMLDivElement>) => {
-    if (!isPointerDown.current || !scrollContainerRef.current) return;
-    const deltaX = event.clientX - pointerStartX.current;
-    scrollContainerRef.current.scrollLeft = scrollStartX.current - deltaX;
-    event.preventDefault();
-  };
-
-  const handlePointerEnd = (event: PointerEvt<HTMLDivElement>) => {
-    isPointerDown.current = false;
-    scrollContainerRef.current?.releasePointerCapture?.(event.pointerId);
-  };
-
-  const handleWheel = (event: WheelEvt<HTMLDivElement>) => {
-    if (!scrollContainerRef.current) return;
-    if (Math.abs(event.deltaY) > Math.abs(event.deltaX)) {
-      scrollContainerRef.current.scrollLeft += event.deltaY;
-      event.preventDefault();
-    }
-  };
 
   const scroll = (direction: 'left' | 'right') => {
     if (scrollContainerRef.current) {
@@ -143,14 +111,12 @@ export function SkillsSection() {
 
         <div
           ref={scrollContainerRef}
-          className="flex gap-6 overflow-x-auto pb-6 scrollbar-hide"
-          style={{ scrollbarWidth: 'none', msOverflowStyle: 'none', touchAction: 'pan-x pan-y' }}
-          onPointerDown={handlePointerDown}
-          onPointerMove={handlePointerMove}
-          onPointerUp={handlePointerEnd}
-          onPointerCancel={handlePointerEnd}
-          onPointerLeave={handlePointerEnd}
-          onWheel={handleWheel}
+          className="flex gap-6 overflow-x-auto pb-6 scrollbar-hide snap-x snap-mandatory"
+          style={{
+            scrollbarWidth: 'none',
+            msOverflowStyle: 'none',
+            WebkitOverflowScrolling: 'touch',
+          }}
         >
           {skills.map((skill, index) => (
             <motion.div
@@ -158,7 +124,7 @@ export function SkillsSection() {
               initial={{ opacity: 0, y: 30 }}
               animate={isInView ? { opacity: 1, y: 0 } : {}}
               transition={{ delay: index * 0.1, duration: 0.6 }}
-              className="flex-shrink-0 w-80 bg-[#3d4557] rounded-2xl p-8 hover:bg-[#4a5163] transition-colors"
+              className="flex-shrink-0 w-80 bg-[#3d4557] rounded-2xl p-8 hover:bg-[#4a5163] transition-colors snap-start"
             >
               <div className="w-16 h-16 bg-[#0066FF] rounded-full flex items-center justify-center mb-6">
                 <img
