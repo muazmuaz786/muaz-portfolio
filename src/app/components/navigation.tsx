@@ -59,6 +59,9 @@ export function Navigation() {
             <a href="#about" className="block text-gray-300 hover:text-white transition-colors">
               About
             </a>
+            <a href="#skills" className="block text-gray-300 hover:text-white transition-colors">
+              Skills
+            </a>
             <a href="#certificates" className="block text-gray-300 hover:text-white transition-colors">
               Certificates
             </a>
