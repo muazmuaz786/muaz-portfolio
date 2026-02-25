@@ -144,7 +144,7 @@ export function SkillsSection() {
         <div
           ref={scrollContainerRef}
           className="flex gap-6 overflow-x-auto pb-6 scrollbar-hide"
-          style={{ scrollbarWidth: 'none', msOverflowStyle: 'none', touchAction: 'pan-y' }}
+          style={{ scrollbarWidth: 'none', msOverflowStyle: 'none', touchAction: 'pan-x pan-y' }}
           onPointerDown={handlePointerDown}
           onPointerMove={handlePointerMove}
           onPointerUp={handlePointerEnd}
