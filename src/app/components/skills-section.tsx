@@ -130,7 +130,7 @@ export function SkillsSection() {
             touchAction: 'pan-x',
           }}
           onPointerDown={(event: PointerEvt<HTMLDivElement>) => {
-            if (!scrollContainerRef.current) return;
+            if (event.pointerType !== 'mouse' || !scrollContainerRef.current) return;
             event.preventDefault();
             isPointerDown.current = true;
             pointerStartX.current = event.clientX;
@@ -144,14 +144,17 @@ export function SkillsSection() {
             event.preventDefault();
           }}
           onPointerUp={(event: PointerEvt<HTMLDivElement>) => {
+            if (event.pointerType !== 'mouse') return;
             isPointerDown.current = false;
             scrollContainerRef.current?.releasePointerCapture?.(event.pointerId);
           }}
           onPointerCancel={(event: PointerEvt<HTMLDivElement>) => {
+            if (event.pointerType !== 'mouse') return;
             isPointerDown.current = false;
             scrollContainerRef.current?.releasePointerCapture?.(event.pointerId);
           }}
           onPointerLeave={(event: PointerEvt<HTMLDivElement>) => {
+            if (event.pointerType !== 'mouse') return;
             isPointerDown.current = false;
             scrollContainerRef.current?.releasePointerCapture?.(event.pointerId);
           }}
