@@ -43,7 +43,7 @@ const projects: Project[] = [
     links: [
       {
         label: 'Download .exe',
-        href: '/downloads/first-game.exe'
+        href: `${import.meta.env.BASE_URL}downloads/first-game.exe`
       }
     ]
   },
