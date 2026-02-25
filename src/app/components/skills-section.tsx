@@ -89,6 +89,12 @@ export function SkillsSection() {
               <span className="text-[#0066FF]">/</span> MY SKILLS
             </p>
             <h2 className="text-4xl md:text-5xl font-bold">My extensive list of skills</h2>
+            <p className="md:hidden text-sm text-gray-400 mt-2 flex items-center gap-2">
+              <span className="inline-flex items-center justify-center w-6 h-6 rounded-full bg-white/10">
+                <ChevronRight size={14} />
+              </span>
+              Swipe to explore the skills carousel
+            </p>
           </div>
 
           <div className="hidden md:flex gap-3">
@@ -109,36 +115,41 @@ export function SkillsSection() {
           </div>
         </div>
 
-        <div
-          ref={scrollContainerRef}
-          className="flex gap-6 overflow-x-auto pb-6 scrollbar-hide snap-x snap-mandatory"
-          style={{
-            scrollbarWidth: 'none',
-            msOverflowStyle: 'none',
-            WebkitOverflowScrolling: 'touch',
-          }}
-        >
-          {skills.map((skill, index) => (
-            <motion.div
-              key={skill.name}
-              initial={{ opacity: 0, y: 30 }}
-              animate={isInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ delay: index * 0.1, duration: 0.6 }}
-              className="flex-shrink-0 w-80 bg-[#3d4557] rounded-2xl p-8 hover:bg-[#4a5163] transition-colors snap-start"
-            >
-              <div className="w-16 h-16 bg-[#0066FF] rounded-full flex items-center justify-center mb-6">
-                <img
-                  src={skill.logo}
-                  alt={`${skill.name} logo`}
-                  className="w-10 h-10 object-contain drop-shadow-sm"
-                  loading="lazy"
-                />
-              </div>
-              <h3 className="text-2xl font-bold mb-3">{skill.name}</h3>
-              <p className="text-gray-300 leading-relaxed mb-6">{skill.description}</p>
-              <div className="w-12 h-1 bg-white" />
-            </motion.div>
-          ))}
+        <div className="relative">
+          <div
+            ref={scrollContainerRef}
+            className="flex gap-4 overflow-x-scroll pb-5 pr-4 -mr-4 snap-x snap-mandatory scroll-smooth"
+            style={{
+              scrollbarWidth: 'thin',
+              msOverflowStyle: 'auto',
+              WebkitOverflowScrolling: 'touch',
+            }}
+          >
+            {skills.map((skill, index) => (
+              <motion.div
+                key={skill.name}
+                initial={{ opacity: 0, y: 30 }}
+                animate={isInView ? { opacity: 1, y: 0 } : {}}
+                transition={{ delay: index * 0.1, duration: 0.6 }}
+                className="flex-shrink-0 w-72 min-w-[16rem] bg-[#3d4557] rounded-2xl p-6 hover:bg-[#4a5163] transition-colors snap-start"
+              >
+                <div className="w-16 h-16 bg-[#0066FF] rounded-full flex items-center justify-center mb-6">
+                  <img
+                    src={skill.logo}
+                    alt={`${skill.name} logo`}
+                    className="w-10 h-10 object-contain drop-shadow-sm"
+                    loading="lazy"
+                  />
+                </div>
+                <h3 className="text-2xl font-bold mb-3">{skill.name}</h3>
+                <p className="text-gray-300 leading-relaxed mb-6">{skill.description}</p>
+                <div className="w-12 h-1 bg-white" />
+              </motion.div>
+            ))}
+          </div>
+
+          {/* Right fade to hint scroll */}
+          <div className="pointer-events-none absolute top-0 right-0 h-full w-10 bg-gradient-to-l from-[#2C3444] to-transparent" />
         </div>
       </motion.div>
     </section>
