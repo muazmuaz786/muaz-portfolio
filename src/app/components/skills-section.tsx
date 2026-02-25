@@ -122,7 +122,7 @@ export function SkillsSection() {
       <div className="relative">
         <div
           ref={scrollContainerRef}
-          className="flex gap-4 md:gap-6 overflow-x-auto pb-5 md:pb-6 pr-4 md:pr-0 -mr-4 md:mr-0 scrollbar-hide scroll-smooth cursor-grab active:cursor-grabbing"
+          className="flex gap-4 md:gap-6 overflow-x-auto pb-5 md:pb-6 pr-4 md:pr-0 -mr-4 md:mr-0 scrollbar-hide scroll-smooth cursor-grab active:cursor-grabbing select-none"
           style={{
             scrollbarWidth: 'none',
             msOverflowStyle: 'none',
@@ -131,6 +131,7 @@ export function SkillsSection() {
           }}
           onPointerDown={(event: PointerEvt<HTMLDivElement>) => {
             if (!scrollContainerRef.current) return;
+            event.preventDefault();
             isPointerDown.current = true;
             pointerStartX.current = event.clientX;
             scrollStartX.current = scrollContainerRef.current.scrollLeft;
@@ -168,7 +169,7 @@ export function SkillsSection() {
                 initial={{ opacity: 0, y: 30 }}
                 animate={isInView ? { opacity: 1, y: 0 } : {}}
                 transition={{ delay: index * 0.1, duration: 0.6 }}
-                className="flex-shrink-0 w-72 min-w-[16rem] md:w-80 md:min-w-[20rem] bg-[#3d4557] rounded-2xl p-6 md:p-8 hover:bg-[#4a5163] transition-colors"
+                className="flex-shrink-0 w-72 min-w-[16rem] md:w-80 md:min-w-[20rem] bg-[#3d4557] rounded-2xl p-6 md:p-8 hover:bg-[#4a5163] transition-colors select-none"
               >
                 <div className="w-16 h-16 bg-[#0066FF] rounded-full flex items-center justify-center mb-6">
                   <img
